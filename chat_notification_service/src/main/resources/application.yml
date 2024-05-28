@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: "ChatNotification"
+  profiles:
+    active: "Service"
+  config:
+    import: "optional:configserver:http://localhost:6666/"
