@@ -53,7 +53,7 @@ public class ChatController {
 
     @MessageMapping("/create-chatRoom")
     public void createOrOpenChatRoom(@Payload ChatRoomRequest request, SimpMessageHeaderAccessor headerAccessor) {
-        System.out.println(request);
+
         String roomName = chatService.createOrOpenChatRoom(request);
         List<ChatMessages> messages = chatService.getMessagesForChatRoom(roomName);
         System.out.println(roomName + "name");
