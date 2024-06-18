@@ -56,9 +56,7 @@ public class ChatServiceImp implements ChatService {
                     .senderId(chatMessage.getSenderId())
                     .recipientId(receiverId)
                     .build();
-            ChatMessages saveDat = chatMessageRepository.save(chatMessages).block();
-            System.out.println(saveDat+"---------------------------------------");
-          return saveDat;
+            return chatMessageRepository.save(chatMessages).block();
         } else {
             return null;
         }
@@ -72,6 +70,7 @@ public class ChatServiceImp implements ChatService {
     @Override
     public List<String> listOfSenderData(String id) {
 
+
         Flux<ChatMessages> chatMessagesFlux = chatMessageRepository.findAll();
 
 
@@ -79,8 +78,6 @@ public class ChatServiceImp implements ChatService {
                 .map(ChatMessages::getChatRoomName)
                 .distinct()
                 .collect(Collectors.toSet());
-
-
         return chatRoomNamesList
                 .flatMap(set -> Flux.fromIterable(set)
                         .filter(room -> {
@@ -94,15 +91,6 @@ public class ChatServiceImp implements ChatService {
                         .collect(Collectors.toList()))
                 .block();
     }
-
-
-
-
-
-
-
-
-
 
 
     private String createChatRoomWithUniqueName(String senderId, String receiverId) {
